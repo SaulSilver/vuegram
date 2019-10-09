@@ -11,6 +11,7 @@ export default class PostService {
           ...post,
           created_at: new Date(post.created_at)
         }));
+        console.log('formattedPosts: ', formattedPosts);
         resolve(formattedPosts);
       } catch (err) {
         reject(err);
