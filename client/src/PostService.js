@@ -4,14 +4,13 @@ const url = 'http://localhost:5000/api/posts/';
 
 export default class PostService {
   static getPosts() {
-    new Promise(async (resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
       try {
         const { data } = await axios.get(url);
         const formattedPosts = data.map(post => ({
           ...post,
           created_at: new Date(post.created_at)
         }));
-        console.log('formattedPosts: ', formattedPosts);
         resolve(formattedPosts);
       } catch (err) {
         reject(err);
