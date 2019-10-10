@@ -3,7 +3,11 @@
     <h1>Posts</h1>
     <hr>
     <p class="error" v-if="error">{{error}}</p>
-
+    <div class="create-post">
+      <label for="create-post">What's on your mind</label>
+      <input type="text" id="create-post" v-model="text" placeholder="Create a post">
+      <button v-on:click="createPost">Post</button>
+    </div>
     <div class="posts-container">
       <div
         class="post"
@@ -11,6 +15,7 @@
         v-bind:item="post"
         v-bind:index="index"
         v-bind:key="post._id"
+        v-on:dblclick="deletePost(post._id)"
       >
         {{`${post.created_at.getFullYear()}/${post.created_at.getMonth()}/${post.created_at.getDate()}`}}
         <p class="text">{{post.text}}</p>
@@ -34,6 +39,24 @@ export default {
       this.posts = await PostService.getPosts();
     } catch (err) {
       this.error = err.message;
+    }
+  },
+  methods: {
+    async createPost() {
+      try {
+        await PostService.insertPost(this.text);
+        this.posts = await PostService.getPosts();
+      } catch (err) {
+        this.error = err.message;
+      }
+    },
+    async deletePost(id) {
+      try {
+        await PostService.deletePost(id);
+        this.posts = await PostService.getPosts();
+      } catch (err) {
+        this.error = err.message;
+      }
     }
   }
 };
