@@ -25,9 +25,7 @@ import PostService from "../PostService.js";
 export default {
   name: "PostComponent",
   data: () => ({
-    posts: [
-      { _id: "5d9be7bcde68126e9fbde25f", text: "waba", created_at: new Date() } //TODO: remove this dummy data
-    ],
+    posts: [],
     error: "",
     text: ""
   }),
